@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { Ng5SliderModule } from 'ng5-slider';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +29,6 @@ import { UsersearchPipe } from './usersearch.pipe';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    Ng5SliderModule,
     HttpClientModule
   ],
   providers: [

@@ -98,9 +98,8 @@ export class ProjectComponent implements OnInit {
          error => this.failureMessage = 'Add task failed. Try again later');*/
   }
   reset() {
-    let id = this.project.projectId;
     this.project = new Project();
-    this.project.projectId = id;
+    this.saveType = "Add";
     this.project.priority = 0;
     this.enableDate = false;
     this.dateType = "text";

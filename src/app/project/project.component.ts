@@ -23,7 +23,7 @@ export class ProjectComponent implements OnInit {
   private user: User = new User();
   private users: User[] = [
     {
-      employeeId: 1,
+      employeeId: "1",
       firstName: 'name',
       id: 1,
       lastName: 'last',
@@ -31,7 +31,7 @@ export class ProjectComponent implements OnInit {
       taskId: 1
     },
     {
-      employeeId: 2,
+      employeeId: "2",
       firstName: 'name1',
       id: 2,
       lastName: 'last1',
@@ -148,6 +148,7 @@ export class ProjectComponent implements OnInit {
       this.dateType = "date"
     }
     this.project = project;
+    this.save(event);
   }
 
   suspend(project: Project) {

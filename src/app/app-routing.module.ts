@@ -4,6 +4,8 @@ import { AddtaskComponent } from './addtask/addtask.component';
 import { ViewtaskComponent } from './viewtask/viewtask.component';
 import { UpdatetaskComponent } from './updatetask/updatetask.component';
 import { ProjectComponent } from './project/project.component';
+import { UserComponent } from './user/user.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -24,6 +26,10 @@ const routes: Routes = [
   {
     path: 'project',
     component: ProjectComponent
+  },
+  {
+    path: 'user',
+    component: UserComponent
   }
 ];
 

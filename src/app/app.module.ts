@@ -13,6 +13,7 @@ import { FiltertaskPipe } from './filtertask.pipe';
 import { ProjectComponent } from './project/project.component';
 import { ProjectPipe } from './project.pipe';
 import { UsersearchPipe } from './usersearch.pipe';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { UsersearchPipe } from './usersearch.pipe';
     FiltertaskPipe,
     ProjectComponent,
     ProjectPipe,
-    UsersearchPipe
+    UsersearchPipe,
+    UserComponent
   ],
   imports: [
     BrowserModule,

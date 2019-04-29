@@ -17,6 +17,7 @@ export class ProjectComponent implements OnInit {
   private dateType: any = "text";
   private nameError: string = "";
   private managerError: string = "";
+  private dateError: string = "";
   private saveType: string = 'Add';
   private display: string = 'none';
   private user: User = new User();
@@ -85,7 +86,7 @@ export class ProjectComponent implements OnInit {
   }
   save(event) {
     console.log(this.project);
-    this.nameError = this.managerError = this.failureMessage = this.successMessage = '';
+    this.nameError = this.dateError = this.managerError = this.failureMessage = this.successMessage = '';
     event.preventDefault();
     if (this.validate()) {
       alert(true);
@@ -103,7 +104,7 @@ export class ProjectComponent implements OnInit {
     this.project.priority = 0;
     this.enableDate = false;
     this.dateType = "text";
-    this.nameError = this.managerError = this.failureMessage = this.successMessage = '';
+    this.nameError = this.dateError = this.managerError = this.failureMessage = this.successMessage = '';
   }
 
   toggleDate() {
@@ -132,13 +133,15 @@ export class ProjectComponent implements OnInit {
       isValid = false;
     }
     if (this.enableDate && (this.project.startDate > this.project.endDate)) {
-      this.failureMessage = "Invalid Start and End date";
+      this.dateError = "Invalid Start and End date";
+      this.failureMessage = "Mandatory fields are missing/Invalid";
       isValid = false;
     }
     return isValid;
   }
 
   update(project: Project) {
+    this.nameError = this.dateError = this.managerError = this.failureMessage = this.successMessage = '';
     this.saveType = "Update";
     if (project.startDate && project.endDate) {
       this.enableDate = true;

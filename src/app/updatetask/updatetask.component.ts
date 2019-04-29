@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { TaskService } from '../task.service';
+import { TaskService } from '../service/task.service';
 
 @Component({
   selector: 'app-updatetask',

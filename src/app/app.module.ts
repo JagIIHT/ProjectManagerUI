@@ -9,10 +9,10 @@ import { AppComponent } from './app.component';
 import { AddtaskComponent } from './addtask/addtask.component';
 import { ViewtaskComponent } from './viewtask/viewtask.component';
 import { UpdatetaskComponent } from './updatetask/updatetask.component';
-import { FiltertaskPipe } from './filtertask.pipe';
+import { FiltertaskPipe } from './pipe/filtertask.pipe';
 import { ProjectComponent } from './project/project.component';
-import { ProjectPipe } from './project.pipe';
-import { UsersearchPipe } from './usersearch.pipe';
+import { ProjectPipe } from './pipe/project.pipe';
+import { UsersearchPipe } from './pipe/usersearch.pipe';
 import { UserComponent } from './user/user.component';
 
 @NgModule({

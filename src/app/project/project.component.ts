@@ -100,6 +100,7 @@ export class ProjectComponent implements OnInit {
   }
   reset() {
     this.project = new Project();
+    this.user = new User();
     this.saveType = "Add";
     this.project.priority = 0;
     this.enableDate = false;
@@ -148,7 +149,6 @@ export class ProjectComponent implements OnInit {
       this.dateType = "date"
     }
     this.project = project;
-    this.save(event);
   }
 
   suspend(project: Project) {

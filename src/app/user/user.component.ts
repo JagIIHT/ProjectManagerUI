@@ -17,18 +17,26 @@ export class UserComponent implements OnInit {
   private empIdError: string = '';
   private users: User[] = [
     {
-      employeeId: "1",
-      firstName: 'name',
+      employeeId: "11",
+      firstName: 'Zen',
       id: 1,
-      lastName: 'last',
+      lastName: 'Patrick',
       projectId: 0,
       taskId: 1
     },
     {
-      employeeId: "2",
-      firstName: 'name1',
-      id: 2,
-      lastName: 'last1',
+      employeeId: "200",
+      firstName: 'Richard',
+      id: 21,
+      lastName: 'Martin',
+      projectId: 0,
+      taskId: 1
+    },
+    {
+      employeeId: "31",
+      firstName: 'Jon',
+      id: 3,
+      lastName: 'Snow',
       projectId: 0,
       taskId: 1
     }
@@ -79,11 +87,15 @@ export class UserComponent implements OnInit {
     return isValid;
   }
 
-  update(user: User) {
+  edit(user: User) {
     this.fnameError = this.lnameError = this.empIdError = this.failureMessage = this.successMessage = '';
     this.saveType = "Update";
     this.user = user;
-    this.save(event);
+  }
+
+  delete(user: User) {
+    this.fnameError = this.lnameError = this.empIdError = this.failureMessage = this.successMessage = '';
+    this.successMessage = "User Deleted";
   }
 
   sortByFirstName() {
@@ -91,6 +103,10 @@ export class UserComponent implements OnInit {
   }
 
   sortByLastName() {
-    
+    this.users = this.users.sort((a, b) => (a.lastName > b.lastName) ? 1 : -1);
+  }
+
+  sortByEmpId() {
+    this.users = this.users.sort((a, b) => (a.employeeId < b.employeeId) ? 1 : -1);
   }
 }

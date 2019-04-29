@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { User } from './model/user';
+import { User } from '../model/user';
 
 @Pipe({
   name: 'usersearch'
@@ -14,7 +14,14 @@ export class UsersearchPipe implements PipeTransform {
       return users;
     }
     return users.filter(user => {
-      if (user.firstName && name && user.firstName.includes(name)) {
+      let fullName = '';
+      if (user.firstName) {
+        fullName = user.firstName;
+      }
+      if (user.lastName) {
+        fullName = fullName.concat(" ").concat(user.lastName);
+      }
+      if (fullName && name && fullName.includes(name)) {
         return true;
       }
       return false;

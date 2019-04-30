@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../service/task.service';
+import { Project } from '../model/project';
+import { User } from '../model/user';
+import { Task } from '../model/task';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-addtask',
@@ -8,17 +12,13 @@ import { TaskService } from '../service/task.service';
 })
 export class AddtaskComponent implements OnInit {
 
-  private task: any = {
-    task: '',
-    parent: { task: '' },
-    priority: 0,
-    startDate: '',
-    endDate: ''
-  }
+  private task: Task = new Task();
   private successMessage: string = '';
   private failureMessage: string = '';
+  private enableParent: boolean = false;
+  private dateType: string = 'text';
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private datePipe: DatePipe) { }
 
   ngOnInit() {
   }
@@ -30,5 +30,12 @@ export class AddtaskComponent implements OnInit {
     this.taskService.addTask(this.task).subscribe(
       resp => this.successMessage = 'Task added successfully!',
       error => this.failureMessage = 'Add task failed. Try again later');
+  }
+
+  togglePTask() {
+    this.enableParent = !this.enableParent;
+    if (!this.enableParent) {
+      this.task.parent.task = '';
+    }
   }
 }

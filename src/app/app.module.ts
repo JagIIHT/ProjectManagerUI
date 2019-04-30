@@ -14,6 +14,7 @@ import { ProjectComponent } from './project/project.component';
 import { ProjectPipe } from './pipe/project.pipe';
 import { UsersearchPipe } from './pipe/usersearch.pipe';
 import { UserComponent } from './user/user.component';
+import { ParentPipe } from './pipe/parent.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UserComponent } from './user/user.component';
     ProjectComponent,
     ProjectPipe,
     UsersearchPipe,
-    UserComponent
+    UserComponent,
+    ParentPipe
   ],
   imports: [
     BrowserModule,

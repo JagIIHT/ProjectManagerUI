@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../service/task.service';
+import { ProjectService } from '../service/project.service';
+import { UserService } from '../service/user.service';
 import { Project } from '../model/project';
 import { Parent } from '../model/parent';
 import { User } from '../model/user';
@@ -81,7 +83,10 @@ export class AddtaskComponent implements OnInit {
     }
   ];
 
-  constructor(private taskService: TaskService, private datePipe: DatePipe) { }
+  constructor(private taskService: TaskService,
+    private userService: UserService,
+    private projectService: ProjectService,
+    private datePipe: DatePipe) { }
 
   ngOnInit() {
   }
@@ -103,6 +108,9 @@ export class AddtaskComponent implements OnInit {
   }
 
   openUserModel() {
+    this.userService.getUsers().subscribe(
+      resp => this.users = resp
+    );
     this.modalType = 'userModal';
     this.display = 'block';
     this.modalTitle = 'Manager Selection';
@@ -116,6 +124,9 @@ export class AddtaskComponent implements OnInit {
     this.modalMessage = 'Please select anyone of the task below as Parent Task';
   }
   openProjectModel() {
+    this.projectService.getProjects().subscribe(
+      resp => this.projects = resp
+    );
     this.modalType = 'projectModal';
     this.display = 'block';
     this.modalTitle = 'Project Selection';

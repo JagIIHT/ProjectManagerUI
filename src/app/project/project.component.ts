@@ -3,6 +3,7 @@ import { User } from '../model/user';
 import { Project } from '../model/project';
 import { DatePipe } from '@angular/common';
 import { ProjectService } from '../service/project.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-project',
@@ -79,27 +80,35 @@ export class ProjectComponent implements OnInit {
     }
   ];
 
-  constructor(private datePipe: DatePipe, private projectService: ProjectService) { }
+  constructor(private datePipe: DatePipe,
+    private userService: UserService,
+    private projectService: ProjectService) { }
 
   ngOnInit() {
     this.project.priority = 0;
+    this.getAllProjects();
+  }
+
+  getAllProjects() {
     this.projectService.getProjects().subscribe(
       resp => this.projects = resp
     );
-    console.log(this.projects);
   }
+
   save(event) {
     console.log(this.project);
     this.nameError = this.dateError = this.managerError = this.failureMessage = this.successMessage = '';
     event.preventDefault();
     if (this.validate()) {
-      alert(true);
+      this.saveService(this.project);
     }
-    this.saveService(this.project);
   }
   saveService(project: Project) {
     this.projectService.saveProject(project).subscribe(
-      resp => this.successMessage = 'Project added successfully!',
+      resp => {
+        this.successMessage = 'Project added successfully!';
+        this.getAllProjects();
+      },
       error => this.failureMessage = 'Add Project failed. Try again later');
   }
   reset() {
@@ -162,6 +171,9 @@ export class ProjectComponent implements OnInit {
 
   openUserModel() {
     this.display = 'block';
+    this.userService.getUsers().subscribe(
+      resp => this.users = resp
+    );
   }
 
   closeUserModal() {

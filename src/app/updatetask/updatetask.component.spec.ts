@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, Params, convertToParamMap } from '@angular/rout
 import { UpdatetaskComponent } from './updatetask.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DatePipe } from '@angular/common';
+import { ParentPipe } from '../pipe/parent.pipe';
 
 describe('UpdatetaskComponent', () => {
   let component: UpdatetaskComponent;
@@ -16,7 +17,7 @@ describe('UpdatetaskComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, HttpClientModule, RouterTestingModule],
-      declarations: [UpdatetaskComponent],
+      declarations: [UpdatetaskComponent, ParentPipe],
       providers: [{
         provide: ActivatedRoute,
         useValue: {

@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
+import { UsersearchPipe } from '../pipe/usersearch.pipe';
+import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user.component';
 
 describe('UserComponent', () => {
@@ -8,9 +10,10 @@ describe('UserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserComponent ]
+      imports: [FormsModule, HttpClientModule],
+      declarations: [UserComponent, UsersearchPipe]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

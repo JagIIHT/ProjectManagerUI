@@ -5,6 +5,7 @@ import { FiltertaskPipe } from '../pipe/filtertask.pipe';
 import { ViewtaskComponent } from './viewtask.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DatePipe } from '@angular/common';
+import { ProjectPipe } from '../pipe/project.pipe';
 
 describe('ViewtaskComponent', () => {
   let component: ViewtaskComponent;
@@ -12,11 +13,11 @@ describe('ViewtaskComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewtaskComponent, FiltertaskPipe ],
-      imports:[FormsModule, HttpClientModule, RouterTestingModule ],
-      providers:[DatePipe]
+      declarations: [ViewtaskComponent, FiltertaskPipe, ProjectPipe],
+      imports: [FormsModule, HttpClientModule, RouterTestingModule],
+      providers: [DatePipe]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

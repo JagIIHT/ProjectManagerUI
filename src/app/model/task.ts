@@ -10,4 +10,5 @@ export class Task {
     endDate: string;
     project: Project = new Project();
     user: User = new User();
+    status: string;
 }

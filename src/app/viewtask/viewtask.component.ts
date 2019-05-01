@@ -75,6 +75,6 @@ export class ViewtaskComponent implements OnInit {
   }
 
   sortByStatus() {
-    //this.tasks = this.tasks.sort((a, b) => (a.status > b.status ? 1 : -1));
+    this.tasks = this.tasks.sort((a, b) => (a.status > b.status ? 1 : -1));
   }
 }

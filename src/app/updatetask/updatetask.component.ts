@@ -21,6 +21,10 @@ export class UpdatetaskComponent implements OnInit {
   private parent: Parent = new Parent();
   private tasks: Task[];
   private allParent: Parent[];
+  private taskNameError: string;
+  private dateError: string;
+  private userError: string;
+  private enableParent: boolean = false;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -37,6 +41,9 @@ export class UpdatetaskComponent implements OnInit {
       if (this.task.task) {
         this.viewOnly = (this.task.endDate <= this.todayDate);
       }
+      if (!this.task.startDate) {
+        this.enableParent = true;
+      }
       if (!this.task.parent) {
         this.task.parent = new Parent();
       }
@@ -44,16 +51,32 @@ export class UpdatetaskComponent implements OnInit {
   }
 
   updateTask(event) {
+    this.successMessage = this.taskNameError = this.dateError = this.userError = this.failureMessage = '';
     event.preventDefault();
-    this.successMessage = '';
-    this.failureMessage = '';
     if (this.task.parent && (!this.task.parent.task || this.task.parent.task.trim() === "")) {
       this.task.parent = null;
     }
-    this.taskService.updateTask(this.task).subscribe(
-      resp => this.successMessage = 'Task updated successfully!',
-      error => this.failureMessage = 'Update failed. Try again later');
+    if (this.validate()) {
+      this.taskService.updateTask(this.task).subscribe(
+        resp => this.successMessage = 'Task updated successfully!',
+        error => this.failureMessage = 'Update failed. Try again later');
+    }
     // this.router.navigate(['/view']);
+  }
+
+  validate() {
+    let isValid: boolean = true;
+    if (!this.task.task || this.task.task.trim() === "") {
+      this.taskNameError = "Task Name is mandatory";
+      this.failureMessage = "Mandatory fields are missing";
+      isValid = false;
+    }
+    if (!this.enableParent && (!this.task.startDate || !this.task.endDate || this.task.startDate > this.task.endDate)) {
+      this.dateError = "Invalid Start and End date";
+      this.failureMessage = "Mandatory fields are missing/Invalid";
+      isValid = false;
+    }
+    return isValid;
   }
 
   openParentModel() {

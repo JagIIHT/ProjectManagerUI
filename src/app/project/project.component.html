@@ -22,8 +22,8 @@
           <label for="endabledate" class="col-md-4">Set Start and End Date</label>&nbsp;&nbsp;
           <input [type]="dateType" [disabled]="!enableDate" class="col-md-3" placeholder="Start Date" id="sdate" name="sdate" [(ngModel)]="project.startDate"
             style="background-color:#f7d7af">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <input [type]="dateType" [disabled]="!enableDate" class="col-md-3" placeholder="End Date" id="edate" name="edate" [(ngModel)]="project.endDate"
-            style="background-color:#f7d7af">
+            <input [type]="dateType" [disabled]="!enableDate" class="col-md-3" placeholder="End Date" id="edate" name="edate" [(ngModel)]="project.endDate"
+              style="background-color:#f7d7af">
         </div>
       </div>
       <div *ngIf="dateError" class="row">
@@ -38,8 +38,8 @@
           <output name="startrange" id="startrange">0</output>
           <input id="priority" class="col-md-11" name="priority" type="range" value="0" [(ngModel)]="project.priority" min="0" max="30"
             oninput>
-          <output name="endrange" id="endrange">30</output>
-          <br> Priority: {{project.priority}}
+            <output name="endrange" id="endrange">30</output>
+            <br> Priority: {{project.priority}}
         </div>
       </div>
     </div>
@@ -88,23 +88,23 @@
         <div class="col-md-2"></div>
         <div class="col-md-6 ml-1 column-bg-color">
           <div class="row">
-            <label class="col-md-10">Project: {{project.name}}</label>
+            <label class="col-md-10"><strong>Project:</strong> {{project.name}}</label>
           </div>
           <div class="row">
             <br>
           </div>
           <div class="row">
-            <label class="col-md-6">No of Tasks: {{project.name}}</label>
-            <label class="col-md-6">Completed: {{project.status}}</label>
+            <label class="col-md-6"><strong>No of Tasks:</strong> {{project.name}}</label>
+            <label class="col-md-6"><strong>Completed:</strong> {{project.status}}</label>
           </div>
           <div class="row">
-            <label class="col-md-6">Start Date: {{project.startDate}}</label>
-            <label class="col-md-6">End Date: {{project.endDate}}</label>
+            <label class="col-md-6"><strong>Start Date:</strong> {{project.startDate}}</label>
+            <label class="col-md-6"><strong>End Date:</strong> {{project.endDate}}</label>
           </div>
         </div>
         <div class="col-md-1 ml-1 column-bg-color">
           <div class="row column-text-align">
-            Priority
+            <strong>Priority</strong>
           </div>
           <div class="row column-text-align">
             {{project.priority}}

@@ -17,36 +17,45 @@
         <input type="text" class="col-md-4 form-control" id="task" [disabled]=viewOnly name="task" [(ngModel)]="task.task" style="background-color:#f7d7af">
       </div>
     </div>
-    <div class="form-group">
-      <div class="row">
-        <label for="priority" class="col-md-2">Priority:</label>
-        <div class="col-md-10">
-          <output name="startrange" id="startrange">0</output>
-          <input id="priority" class="col-md-4" name="priority" [disabled]=viewOnly type="range" value="0" [(ngModel)]="task.priority"
-            min="0" max="30">
-            <output name="endrange" id="endrange">30</output>
-            <br> Priority: {{task.priority}}
+    <div *ngIf="enableParent">
+      <p>This is Parent Task</p>
+    </div>
+    <div *ngIf="!enableParent">
+      <div class="form-group">
+        <div class="row">
+          <label for="priority" class="col-md-2">Priority:</label>
+          <div class="col-md-10">
+            <output name="startrange" id="startrange">0</output>
+            <input id="priority" class="col-md-4" name="priority" [disabled]=viewOnly type="range" value="0" [(ngModel)]="task.priority"
+              min="0" max="30">
+              <output name="endrange" id="endrange">30</output>
+              <br> Priority: {{task.priority}}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="row">
-        <label for="ptask" class="col-md-2">Parent Task:</label>
-        <input type="text" class="col-md-4 form-control" id="ptask" disabled name="ptask" [(ngModel)]="task.parent.task" style="background-color:#f7d7af">&nbsp;&nbsp;
-        <button *ngIf="!viewOnly" type="button" class="col-md-1" (click)="openParentModel()" value="search">Search</button>
+      <div class="form-group">
+        <div class="row">
+          <label for="ptask" class="col-md-2">Parent Task:</label>
+          <input type="text" class="col-md-4 form-control" id="ptask" disabled name="ptask" [(ngModel)]="task.parent.task" style="background-color:#f7d7af">&nbsp;&nbsp;
+          <button *ngIf="!viewOnly" type="button" class="col-md-1" (click)="openParentModel()" value="search">Search</button>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="row">
-        <label for="sdate" class="col-md-2">Start Date:</label>
-        <input type="date" class="col-md-4 form-control" id="sdate" [disabled]=viewOnly name="sdate" [(ngModel)]="task.startDate"
-          style="background-color:#f7d7af">
+      <div class="form-group">
+        <div class="row">
+          <label for="sdate" class="col-md-2">Start Date:</label>
+          <input type="date" class="col-md-4 form-control" id="sdate" [disabled]=viewOnly name="sdate" [(ngModel)]="task.startDate"
+            style="background-color:#f7d7af">
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="row">
-        <label for="edate" class="col-md-2">End Date:</label>
-        <input type="date" class="col-md-4 form-control" id="edate" [disabled]=viewOnly name="edate" [(ngModel)]="task.endDate" style="background-color:#f7d7af">
+      <div class="form-group">
+        <div class="row">
+          <label for="edate" class="col-md-2">End Date:</label>
+          <input type="date" class="col-md-4 form-control" id="edate" [disabled]=viewOnly name="edate" [(ngModel)]="task.endDate" style="background-color:#f7d7af">
+        </div>
+      </div>
+      <div *ngIf="dateError" class="row">
+        <div class="col-md-2"></div>
+        <span *ngIf="dateError" class="alert-danger text-center" role="alert">{{dateError}}</span>
       </div>
     </div>
     <div class="form-group">

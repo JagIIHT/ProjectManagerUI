@@ -40,6 +40,11 @@ export class AddtaskComponent implements OnInit {
     private datePipe: DatePipe) { }
 
   ngOnInit() {
+    this.initialize();
+  }
+
+  initialize() {
+    this.task = new Task();
     this.task.startDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.task.endDate = this.datePipe.transform(new Date().setDate(new Date().getDate() + 1), 'yyyy-MM-dd');
   }
@@ -70,27 +75,28 @@ export class AddtaskComponent implements OnInit {
   }
 
   save(event) {
-    console.log(this.task);
     event.preventDefault();
-    this.successMessage = '';
-    this.failureMessage = '';
+    this.successMessage = this.taskNameError = this.dateError = this.projectNameError = this.userError = this.failureMessage = '';
     if (this.validate()) {
       if (this.task.parent && !this.task.parent.task) {
         this.task.parent = null;
       }
-      this.taskService.addTask(this.task).subscribe(
-        resp => this.successMessage = 'Task added successfully!',
-        error => this.failureMessage = 'Add task failed. Try again later');
       if (this.enableParent) {
+        this.task.startDate = this.task.endDate = this.task.user = this.task.parent = null;
         this.taskService.addParentTask(this.task).subscribe(
           resp => this.successMessage = 'Parent Task added successfully!',
           error => this.failureMessage = 'Add Parent task failed. Try again later');
       }
+      this.taskService.addTask(this.task).subscribe(
+        resp => this.successMessage = 'Task added successfully!',
+        error => this.failureMessage = 'Add task failed. Try again later');
     }
+    this.initialize();
   }
 
   togglePTask() {
     this.enableParent = !this.enableParent;
+    this.successMessage = this.taskNameError = this.dateError = this.projectNameError = this.userError = this.failureMessage = '';
   }
 
   openUserModel() {

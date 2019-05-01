@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
 import { Project } from '../model/project';
 import { DatePipe } from '@angular/common';
+import { ProjectService } from '../service/project.service';
 
 @Component({
   selector: 'app-project',
@@ -78,10 +79,13 @@ export class ProjectComponent implements OnInit {
     }
   ];
 
-  constructor(private datePipe: DatePipe) { }
+  constructor(private datePipe: DatePipe, private projectService: ProjectService) { }
 
   ngOnInit() {
     this.project.priority = 0;
+    this.projectService.getProjects().subscribe(
+      resp => this.projects = resp
+    );
     console.log(this.projects);
   }
   save(event) {
@@ -94,9 +98,9 @@ export class ProjectComponent implements OnInit {
     this.saveService(this.project);
   }
   saveService(project: Project) {
-    /*   this.taskService.addTask(this.task).subscribe(
-         resp => this.successMessage = 'Task added successfully!',
-         error => this.failureMessage = 'Add task failed. Try again later');*/
+    this.projectService.saveProject(project).subscribe(
+      resp => this.successMessage = 'Project added successfully!',
+      error => this.failureMessage = 'Add Project failed. Try again later');
   }
   reset() {
     this.project = new Project();

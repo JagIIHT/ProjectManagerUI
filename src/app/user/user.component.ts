@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-user',
@@ -42,9 +43,17 @@ export class UserComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit() {
+    this.getAllUsers();
+  }
+
+  getAllUsers() {
+    this.userService.getUsers().subscribe(
+      resp => this.users = resp
+    );
   }
 
   save(event) {
@@ -52,14 +61,16 @@ export class UserComponent implements OnInit {
     this.fnameError = this.lnameError = this.empIdError = this.failureMessage = this.successMessage = '';
     event.preventDefault();
     if (this.validate()) {
-      alert(true);
+      this.saveService(this.user);
     }
-    this.saveService(this.user);
   }
   saveService(user: User) {
-    /*   this.taskService.addTask(this.task).subscribe(
-         resp => this.successMessage = 'Task added successfully!',
-         error => this.failureMessage = 'Add task failed. Try again later');*/
+    this.userService.saveUser(this.user).subscribe(
+      resp => {
+        this.successMessage = 'User added successfully!';
+        this.getAllUsers();
+      },
+      error => this.failureMessage = 'Add User failed. Try again later');
   }
   reset() {
     this.user = new User();
@@ -107,6 +118,6 @@ export class UserComponent implements OnInit {
   }
 
   sortByEmpId() {
-    this.users = this.users.sort((a, b) => (a.employeeId < b.employeeId) ? 1 : -1);
+    this.users = this.users.sort((a, b) => (a.employeeId > b.employeeId) ? 1 : -1);
   }
 }

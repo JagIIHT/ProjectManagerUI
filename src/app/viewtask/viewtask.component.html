@@ -2,7 +2,7 @@
   <div class="form-group">
     <div class="row">
       <label for="pname" class="col-md-1">Project:</label><br>
-      <input type="text" class="col-md-4 form-control" id="pname" [(ngModel)]="projectname" name="pname" style="background-color:#f7d7af">&nbsp;&nbsp;
+      <input type="text" class="col-md-4 form-control" disbaled id="pname" [(ngModel)]="searchItem" name="pname" style="background-color:#f7d7af">&nbsp;&nbsp;
       <button type="button" class="col-md-1 btn btn-info" (click)="openProjectModel()" value="search">Search</button>&nbsp;&nbsp;
       <div>Sort Task By</div>&nbsp;&nbsp;
       <button type="button" class="col-md-1 btn btn-info btn-sm" (click)="sortByStartDate()" value="Start Date">Start Date</button>&nbsp;&nbsp;
@@ -13,7 +13,7 @@
   </div>
   <br>
   <hr style="border-top: solid 1px;">
-  <div class="row text-center" *ngFor="let task of tasks | filtertask:projectname">
+  <div class="row text-center" *ngFor="let task of tasks | filtertask:searchItem">
     <div class="col-md-3">
       <div class="row column-text-align">
         <strong>Task</strong>
@@ -30,7 +30,9 @@
       </div>
       <div class="row column-text-align column-bg-color">
         <br>
-        <p class="text-center">{{task.parent.task}}</p>
+        <p class="text-center">
+          {{(task.parent && task.parent.task)?task.parent.task:'No Parent task'}}
+        </p>
         <br>
       </div>
     </div>

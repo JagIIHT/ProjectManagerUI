@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { TaskService } from '../service/task.service';
+import { ProjectService } from '../service/project.service';
 import { Project } from '../model/project';
 import { Parent } from '../model/parent';
 import { Task } from '../model/task';
@@ -16,8 +17,10 @@ export class ViewtaskComponent implements OnInit {
   private project: Project = new Project();
   private display: string = 'none';
   private searchItem: string;
+  private projects: Project[];
 
   constructor(private datePipe: DatePipe,
+    private projectService: ProjectService,
     private taskService: TaskService) { }
 
   ngOnInit() {
@@ -31,8 +34,16 @@ export class ViewtaskComponent implements OnInit {
     );
   }
 
+  getAllProjects() {
+    this.projectService.getProjects().subscribe(
+      resp => this.projects = resp
+    );
+  }
+
   openProjectModel() {
+    this.getAllProjects();
     this.display = 'block';
+    this.searchItem = '';
   }
 
   closeModal() {

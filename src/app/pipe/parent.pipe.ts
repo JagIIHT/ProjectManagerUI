@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Parent } from '../model/parent';
+import { Task } from '../model/task';
 
 @Pipe({
   name: 'filterparent'
 })
 export class ParentPipe implements PipeTransform {
 
-  transform(parents: Parent[], name?: string): Parent[] {
+  transform(parents: Task[], name?: string): Task[] {
     if (!parents) {
       return [];
     }

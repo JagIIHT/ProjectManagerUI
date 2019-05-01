@@ -1,4 +1,4 @@
 export class Parent {
     id: number;
-    task: string;
+    task: string = '';
 }

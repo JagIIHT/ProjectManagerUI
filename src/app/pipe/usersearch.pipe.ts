@@ -21,7 +21,7 @@ export class UsersearchPipe implements PipeTransform {
       if (user.lastName) {
         fullName = fullName.concat(" ").concat(user.lastName);
       }
-      if (fullName && name && fullName.includes(name)) {
+      if (fullName && name && fullName.toLowerCase().includes(name.toLowerCase())) {
         return true;
       }
       return false;

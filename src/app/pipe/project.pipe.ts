@@ -14,7 +14,7 @@ export class ProjectPipe implements PipeTransform {
       return projects;
     }
     return projects.filter(project => {
-      if (name && project.name && project.name.includes(name)) {
+      if (name && project.name && project.name.toLowerCase().includes(name.toLowerCase())) {
         return true;
       }
     }

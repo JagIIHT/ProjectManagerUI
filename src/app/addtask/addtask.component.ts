@@ -26,62 +26,13 @@ export class AddtaskComponent implements OnInit {
   private parent: Parent = new Parent();
   private project: Project = new Project();
   private user: User = new User();
-  private users: User[] = [
-    {
-      employeeId: "1",
-      firstName: 'name',
-      id: 1,
-      lastName: 'last',
-      projectId: 0,
-      taskId: 1
-    },
-    {
-      employeeId: "2",
-      firstName: 'name1',
-      id: 2,
-      lastName: 'last1',
-      projectId: 0,
-      taskId: 1
-    }
-  ];
-  private projects: Project[] = [
-    {
-      projectId: 1,
-      name: 'p4',
-      priority: 4,
-      startDate: this.datePipe.transform(new Date().setDate(new Date().getDate() + 5), 'yyyy-MM-dd'),
-      endDate: '2019-06-01',
-      status: 'Completed',
-      user: new User()
-    },
-    {
-      projectId: 2,
-      name: 'p2',
-      priority: 1,
-      startDate: this.datePipe.transform(new Date().setDate(new Date().getDate() + 1), 'yyyy-MM-dd'),
-      endDate: '2019-08-12',
-      status: 'Completed',
-      user: new User()
-    },
-    {
-      projectId: 12,
-      name: 'p12',
-      priority: 11,
-      startDate: this.datePipe.transform(new Date().setDate(new Date().getDate() + 11), 'yyyy-MM-dd'),
-      endDate: '2019-03-11',
-      status: 'In Progress',
-      user: new User()
-    },
-    {
-      projectId: 3,
-      name: 'p6rwerfesfsdgyhfvgdg',
-      priority: 6,
-      startDate: this.datePipe.transform(new Date().setDate(new Date().getDate() - 1), 'yyyy-MM-dd'),
-      endDate: '2019-01-01',
-      status: 'Completed',
-      user: new User()
-    }
-  ];
+  private allParent: Parent[];
+  private users: User[];
+  private projects: Project[];
+  private taskNameError: string;
+  private projectNameError: string;
+  private dateError: string;
+  private userError: string;
 
   constructor(private taskService: TaskService,
     private userService: UserService,
@@ -89,22 +40,57 @@ export class AddtaskComponent implements OnInit {
     private datePipe: DatePipe) { }
 
   ngOnInit() {
+    this.task.startDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.task.endDate = this.datePipe.transform(new Date().setDate(new Date().getDate() + 1), 'yyyy-MM-dd');
+  }
+
+  validate() {
+    let isValid: boolean = true;
+    if (!this.task.task || this.task.task.trim() === "") {
+      this.taskNameError = "Task Name is mandatory";
+      this.failureMessage = "Mandatory fields are missing";
+      isValid = false;
+    }
+    if (!this.task.project || !this.task.project.name || this.task.project.name === "") {
+      this.projectNameError = "Project Name is mandatory";
+      this.failureMessage = "Mandatory fields are missing";
+      isValid = false;
+    }
+    if (!this.enableParent && (!this.task.startDate || !this.task.endDate || this.task.startDate > this.task.endDate)) {
+      this.dateError = "Invalid Start and End date";
+      this.failureMessage = "Mandatory fields are missing/Invalid";
+      isValid = false;
+    }
+    if (!this.enableParent && (!this.task.user || !this.task.user.firstName)) {
+      this.userError = "User name missing";
+      this.failureMessage = "Mandatory fields are missing/Invalid";
+      isValid = false;
+    }
+    return isValid;
   }
 
   save(event) {
+    console.log(this.task);
     event.preventDefault();
     this.successMessage = '';
     this.failureMessage = '';
-    this.taskService.addTask(this.task).subscribe(
-      resp => this.successMessage = 'Task added successfully!',
-      error => this.failureMessage = 'Add task failed. Try again later');
+    if (this.validate()) {
+      if (this.task.parent && !this.task.parent.task) {
+        this.task.parent = null;
+      }
+      this.taskService.addTask(this.task).subscribe(
+        resp => this.successMessage = 'Task added successfully!',
+        error => this.failureMessage = 'Add task failed. Try again later');
+      if (this.enableParent) {
+        this.taskService.addParentTask(this.task).subscribe(
+          resp => this.successMessage = 'Parent Task added successfully!',
+          error => this.failureMessage = 'Add Parent task failed. Try again later');
+      }
+    }
   }
 
   togglePTask() {
     this.enableParent = !this.enableParent;
-    if (!this.enableParent) {
-      this.task.parent.task = '';
-    }
   }
 
   openUserModel() {
@@ -118,6 +104,9 @@ export class AddtaskComponent implements OnInit {
   }
 
   openParentModel() {
+    this.taskService.getAllParent().subscribe(
+      resp => this.allParent = resp
+    );
     this.modalType = 'parentModal';
     this.display = 'block';
     this.modalTitle = 'Parent Task Selection';
@@ -153,7 +142,6 @@ export class AddtaskComponent implements OnInit {
   }
 
   add() {
-    console.log(this.user, this.parent, this.project);
     if (this.modalType === 'userModal') {
       this.task.user = this.user;
     }
@@ -164,6 +152,5 @@ export class AddtaskComponent implements OnInit {
       this.task.project = this.project;
     }
     this.display = "none";
-    console.log(this.task);
   }
 }

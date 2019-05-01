@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { TaskService } from '../service/task.service';
+import { Task } from '../model/task';
+import { Parent } from '../model/parent';
 
 @Component({
   selector: 'app-updatetask',
@@ -12,15 +14,13 @@ export class UpdatetaskComponent implements OnInit {
   private todayDate: any = new Date();
   private id: any;
   private viewOnly: boolean = false;
-  private task: any = {
-    task: '',
-    parent: { task: '' },
-    priority: 0,
-    startDate: '',
-    endDate: ''
-  }
+  private task: Task = new Task();
   private successMessage: string = '';
   private failureMessage: string = '';
+  private display: string = 'none';
+  private parent: Parent = new Parent();
+  private tasks: Task[];
+  private allParent: Parent[];
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -37,6 +37,9 @@ export class UpdatetaskComponent implements OnInit {
       if (this.task.task) {
         this.viewOnly = (this.task.endDate <= this.todayDate);
       }
+      if (!this.task.parent) {
+        this.task.parent = new Parent();
+      }
     });
   }
 
@@ -44,9 +47,33 @@ export class UpdatetaskComponent implements OnInit {
     event.preventDefault();
     this.successMessage = '';
     this.failureMessage = '';
+    if (this.task.parent && (!this.task.parent.task || this.task.parent.task.trim() === "")) {
+      this.task.parent = null;
+    }
     this.taskService.updateTask(this.task).subscribe(
       resp => this.successMessage = 'Task updated successfully!',
       error => this.failureMessage = 'Update failed. Try again later');
     // this.router.navigate(['/view']);
+  }
+
+  openParentModel() {
+    this.taskService.getAllParent().subscribe(
+      resp => this.allParent = resp
+    );
+    this.display = 'block';
+  }
+
+  closeModal() {
+    this.display = 'none';
+  }
+
+  selectedParent(parent: Parent, event: Event) {
+    event.preventDefault();
+    this.parent = parent;
+  }
+
+  add() {
+    this.task.parent = this.parent;
+    this.display = "none";
   }
 }

@@ -15,7 +15,7 @@ export class FiltertaskPipe implements PipeTransform {
     }
 
     return tasks.filter(task => {
-      if (name && task.project.name.toLowerCase().includes(name.toLowerCase())) {
+      if (name && task.project && task.project.name && task.project.name.toLowerCase().includes(name.toLowerCase())) {
         return true;
       }
       return false;

@@ -5,10 +5,10 @@
       <input type="text" class="col-md-4 form-control" placeholder="Search..." disabled id="pname" [(ngModel)]="searchItem" name="pname" style="background-color:#f7d7af">&nbsp;&nbsp;
       <button type="button" class="col-md-1 btn btn-info" (click)="openProjectModel()" value="search">Search</button>&nbsp;&nbsp;
       <div>Sort Task By</div>&nbsp;&nbsp;
-      <button type="button" class="col-md-1 btn btn-info btn-sm" (click)="sortByStartDate()" value="Start Date">Start Date</button>&nbsp;&nbsp;
-      <button type="button" class="col-md-1 btn btn-info" (click)="sortByEndDate()" value="End Date">End Date</button>&nbsp;&nbsp;
-      <button type="button" class="col-md-1 btn btn-info" (click)="sortByPriority()" value="Priority">Priority</button>&nbsp;&nbsp;
-      <button type="button" class="col-md-1 btn btn-info" (click)="sortByStatus()" value="Completed">Completed</button>
+      <button type="button" class="btn btn-info btn-sm" (click)="sortByStartDate()" value="Start Date">Start Date</button>&nbsp;&nbsp;
+      <button type="button" class="btn btn-info" (click)="sortByEndDate()" value="End Date">End Date</button>&nbsp;&nbsp;
+      <button type="button" class="btn btn-info" (click)="sortByPriority()" value="Priority">Priority</button>&nbsp;&nbsp;
+      <button type="button" class="btn btn-info" (click)="sortByStatus()" value="Completed">Completed</button>
     </div>
   </div>
   <br>
@@ -24,7 +24,7 @@
         <br>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <div class="row column-text-align">
         <strong>Parent</strong>
       </div>
@@ -66,7 +66,7 @@
         <br>
       </div>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
       <div class="row column-text-align">
         <br>
       </div>
@@ -76,14 +76,14 @@
 							<=todayDate && task.endDate !='')? 'View': 'Edit'}}</button>
       </div>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
       <div class="row column-text-align">
         <br>
       </div>
-      <div class="row column-text-align">
-        <br>
+      <div class="row column-text-align">   
+        <br>     
         <button *ngIf="!(task.endDate
-						<=todayDate && task.endDate !='')" class="btn btn-danger btn-sm" (click)="endTask(task)">End Task</button>
+						<=todayDate && task.endDate !='')" class="btn btn-danger btn-sm " (click)="endTask(task)">End Task</button>
       </div>
     </div>
   </div>
